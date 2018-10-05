@@ -1,0 +1,49 @@
+.brand_logo a{
+
+}
+h1 {
+    color: #4b286d;
+    font-size: 2.8em;
+    font-weight: 400;
+}
+.page-title {
+    margin-top: 50px;
+}
+/* h1.page-title span {
+    font-size: 0.5em;
+    float: right;
+    vertical-align: bottom;
+}
+.form-label {
+    color: #2a2c2e;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: -0.8px;
+    line-height: 1.5;
+}
+.form-control {
+    border-color: #54595f;
+    background-color: #fff;
+    -webkit-box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    margin: 0;
+    outline: 0;
+    text-overflow: ellipsis;
+    height: 3.25rem;
+    border-radius: 4px;
+    border-width: 1px;
+    border-style: solid;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    color: #2a2c2e;
+    font-weight: 400;
+    font-size: 1rem;
+    letter-spacing: -0.8px;
+    line-height: 1.5;        
+}
+.form-control:focus {
+    
+} */
