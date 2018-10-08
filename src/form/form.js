@@ -1,131 +1,144 @@
 import React, { Component } from 'react';
+import { Button, FormGroup, FormControl, ControlLabel, Grid, Row, Col, Checkbox } from "react-bootstrap";
 import './form.css';
 
 class form extends Component {
-
 	constructor(props) {
-        super(props);
-        this.state = {
-            fName: '',
-            Lname: '',
+		super(props);
+		this.state = {
+			fName: '',
+			Lname: '',
 			email: '',
 			phone: ''
-        };
-        this.handleInputChange = this.handleInputChange.bind(this);
-    }
-
-    handleInputChange(event) {
-        
+		};
+		this.handleInputChange = this.handleInputChange.bind(this);
+	}
+	handleInputChange(event) {
 		this.setState({
 			[event.target.name]: event.target.value
-		} );
+		});
 		//this.props.onChange(data);
 
-    }
-
-  render() {
-    return   <div className="">
-				<h1 className="page-title">Report a TELUS Public Wi-Fi issue <span>(*)Mandatory</span></h1>
-				<hr/>
-				<h3>Tell us about yourself</h3>
-				<div className="form-group row">
-					<div className="col-sm-6 has-error">
-						<label className="control-label">First Name<sup>*</sup></label>
-						<input type="text" 
-						className="form-control"
-						placeholder="First Name"
-						name="fName"
-						value={this.state.fName}
-						onChange={this.handleInputChange}
+	}
+	render() {
+		return <div className="">
+			<h1 className="page-title">Report a TELUS Public Wi-Fi issue <span>(*)Mandatory</span></h1>
+			<hr />
+			<h3>Tell us about yourself</h3>
+			<Row>
+				<Col xs={12} md={6}>
+					<FormGroup bsSize="large">
+						<ControlLabel>First Name<sup>*</sup></ControlLabel>
+						<FormControl placeholder="First Name" type="text"
+							name="fName"
+							value={this.state.fName}
+							onChange={this.handleInputChange}
 						/>
-						{this.state.fName}
-					</div>
-					<div className="col-sm-6">
-						<label className="control-label">Last Name<sup>*</sup></label>
-						<input type="text" 
-						className="form-control"
-						placeholder="Last Name"
-						name="lName"
-						value={this.state.lName}
-						onChange={this.handleInputChange}
+					</FormGroup>
+				</Col>
+				<Col xs={12} md={6}>
+					<FormGroup bsSize="large">
+						<ControlLabel>First Name<sup>*</sup></ControlLabel>
+						<FormControl placeholder="Last Name" type="text"
+							name="lName"
+							value={this.state.lName}
+							onChange={this.handleInputChange}
 						/>
-					</div>
-					<div className="col-sm-12">
-						<label>TELUS may contact me for the reported Issue via</label>
-						<div className="checkbox">
-							<label>
-								<input type="checkbox"/> Email
-							</label>
-						</div>
-						<div className="checkbox">
-							<label>
-								<input type="checkbox"/> Phone
-							</label>
-						</div>
-						<label>You can review the Telus Privacy Policy Here</label>
-					</div>
-					<div className="col-sm-6">
-						<label className="control-label">Email<sup>*</sup></label>
-						<input type="text" 
-						className="form-control"
-						placeholder="Email"
-						name="email"
-						value={this.state.email}
-						onChange={this.handleInputChange}
+					</FormGroup>
+				</Col>
+				<Col xs={12} md={12}>
+					<FormGroup bsSize="large">
+						<ControlLabel>TELUS may contact me for the reported Issue via</ControlLabel>
+						<Checkbox >
+							Email
+							</Checkbox>
+						<Checkbox >
+							Phone
+							</Checkbox>
+						<ControlLabel>You can review the Telus Privacy Policy Here</ControlLabel>
+					</FormGroup>
+				</Col>
+				<Col xs={12} md={6}>
+					<FormGroup bsSize="large">
+						<ControlLabel>Email<sup>*</sup></ControlLabel>
+						<FormControl placeholder="Email" type="email"
+							name="email"
+							value={this.state.email}
+							onChange={this.handleInputChange}
 						/>
-					</div>
-					<div className="col-sm-6">
-						<label className="control-label">Phone<sup>*</sup></label>
-						<input type="text" 
-						className="form-control"
-						placeholder="Phone"
-						name="phone"
-						value={this.state.phone}
-						onChange={this.handleInputChange}
+					</FormGroup>
+				</Col>
+				<Col xs={12} md={6}>
+					<FormGroup bsSize="large">
+						<ControlLabel>Phone<sup>*</sup></ControlLabel>
+						<FormControl placeholder="Phone" type="text"
+							name="phone"
+							value={this.state.phone}
+							onChange={this.handleInputChange}
 						/>
-					</div>
-				</div>
-				<h3>Tell us about your business</h3>
-				<div className="form-group row">
-					<div className="col-sm-6">
-						<label className="control-label">Wi-Fi Network Name or SSID<sup>*</sup></label>
-						<select className="form-control">
+					</FormGroup>
+				</Col>
+			</Row>
+			<h3>Tell us about your business</h3>
+			<Row>
+				<Col xs={12} md={6}>
+					<FormGroup bsSize="large">
+						<ControlLabel>Wi-Fi Network Name or SSID<sup>*</sup></ControlLabel>
+						<FormControl componentClass="select" placeholder="select">
 							<option value="0">Select</option>
 							<option>#TELUS</option>
 							<option>TELUSPasspoint</option>
 							<option value="Other">Other</option>
-						</select>
+						</FormControl>
 						<div className="hidden">
-						<label className="control-label">Other Details (Wi-Fi SSID)<sup>*</sup></label>
-						<input type="text" className="form-control"/>
+							<ControlLabel>Other Details (Wi-Fi SSID)<sup>*</sup></ControlLabel>
+							<FormControl placeholder="Phone" type="text"
+
+							/>
 						</div>
-					</div>
-					<div className="col-sm-6">
-						<label className="control-label">Device Wi-Fi MAC Address<sup>*</sup></label>
-						<input type="text" className="form-control"/>
-					</div>
-				</div>
-				<h3>Tell us about the location where you experienced the issue</h3>
-				<div className="form-group row">
-					<div className="col-sm-6">
-						<label className="control-label">Company Name</label>
-						<input type="text" className="form-control"/>
-					</div>
-					<div className="col-sm-6">
-						<label className="control-label">Company Phone Number</label>
-						<input type="text" className="form-control"/>
-					</div>
-					<div className="col-sm-6">
-						<label className="control-label">Where did you experienced the issue</label>
-						<input type="text" className="form-control"/>
-					</div>
-					<div className="col-sm-6">
-						<label className="control-label">City<sup>*</sup></label>
-						<input type="text" className="form-control"/>
-					</div>
-					<div className="col-sm-6">
-						<label className="control-label">Province<sup>*</sup></label>
-						<select className="form-control">
+					</FormGroup>
+				</Col>
+				<Col xs={12} md={6}>
+					<FormGroup bsSize="large">
+						<ControlLabel>Device Wi-Fi MAC Address<sup>*</sup></ControlLabel>
+						<FormControl placeholder="MAC Address" type="text"
+							name="phone"
+							value={this.state.phone}
+							onChange={this.handleInputChange}
+						/>
+					</FormGroup>
+				</Col>
+			</Row>
+			<h3>Tell us about the location where you experienced the issue</h3>
+			<Row>
+				<Col xs={12} md={6}>
+					<FormGroup bsSize="large">
+						<ControlLabel>Company Name</ControlLabel>
+						<FormControl placeholder="Company Name" type="text" />
+					</FormGroup>
+				</Col>
+				<Col xs={12} md={6}>
+					<FormGroup bsSize="large">
+						<ControlLabel>Company Phone Number</ControlLabel>
+						<FormControl placeholder="Company Phone Number" type="text" />
+					</FormGroup>
+				</Col>
+				<Col xs={12} md={6}>
+					<FormGroup bsSize="large">
+						<ControlLabel>Where did you experienced the issue</ControlLabel>
+						<FormControl placeholder="Address" type="text" />
+					</FormGroup>
+				</Col>
+				<Col xs={12} md={6}>
+					<FormGroup bsSize="large">
+						<ControlLabel>City<sup>*</sup></ControlLabel>
+						<FormControl placeholder="City" type="text" />
+					</FormGroup>
+				</Col>
+				<Col xs={12} md={6}>
+					<FormGroup bsSize="large">
+						<ControlLabel>Province<sup>*</sup></ControlLabel>
+						<FormControl componentClass="select" placeholder="select">
 							<option value="0">Select</option>
 							<option>AB</option>
 							<option>BC</option>
@@ -139,17 +152,21 @@ class form extends Component {
 							<option>QC</option>
 							<option>SK</option>
 							<option>YT</option>
-						</select>
-					</div>
-					<div className="col-sm-6">
-						<label className="control-label">Date<sup>*</sup></label>
-						<input type="text" className="form-control"/>
-					</div>
-					<div className="col-sm-6">
-						<div className="row">
-							<div className="col-sm-6">
-								<label className="control-label">Time</label>
-								<select className="form-control">
+						</FormControl>
+					</FormGroup>
+				</Col>
+				<Col xs={12} md={6}>
+					<FormGroup bsSize="large">
+						<ControlLabel>Date<sup>*</sup></ControlLabel>
+						<FormControl placeholder="DD/MM/YYY" type="text" />
+					</FormGroup>
+				</Col>
+				<Col xs={12} md={6}>
+					<Row>
+						<Col xs={12} md={6}>
+							<FormGroup bsSize="large">
+								<ControlLabel>Time</ControlLabel>
+								<FormControl componentClass="select" placeholder="HH">
 									<option value="0">HH</option>
 									<option>00</option>
 									<option>01</option>
@@ -176,11 +193,13 @@ class form extends Component {
 									<option>22</option>
 									<option>23</option>
 									<option>24</option>
-								</select>
-							</div>
-							<div className="col-sm-6">
-								<label className="control-label">&nbsp;</label>
-								<select className="form-control">
+								</FormControl>
+							</FormGroup>
+						</Col>
+						<Col xs={12} md={6}>
+							<FormGroup bsSize="large">
+								<ControlLabel>&nbsp;</ControlLabel>
+								<FormControl componentClass="select" placeholder="MM">
 									<option value="0">MM</option>
 									<option>00</option>
 									<option>05</option>
@@ -195,13 +214,15 @@ class form extends Component {
 									<option>50</option>
 									<option>55</option>
 									<option>60</option>
-								</select>
-							</div>
-						</div>
-					</div>
-					<div className="col-sm-6">
-						<label className="control-label">Device & OS Type</label>
-						<select  className="form-control">
+								</FormControl>
+							</FormGroup>
+						</Col>
+					</Row>
+				</Col>
+				<Col xs={12} md={6}>
+					<FormGroup bsSize="large">
+						<ControlLabel>Device & OS Type</ControlLabel>
+						<FormControl componentClass="select" placeholder="Select">
 							<optgroup label="Laptop">
 								<option value="Laptop - ios">iOS</option>
 								<option>MacOS</option>
@@ -222,40 +243,45 @@ class form extends Component {
 								<option>Android</option>
 								<option>ChromeOS</option>
 							</optgroup>
-						</select>
+						</FormControl>
+					</FormGroup>
+				</Col>
+				<Col xs={12} md={6}>
+					<FormGroup bsSize="large">
+						<ControlLabel>Issue Type<sup>*</sup></ControlLabel>
+						<FormControl componentClass="select" placeholder="Issue Type">
+							<option value="0">Select Issue</option>
+							<option>Unable to see Wi-Fi Network or SSID on device</option>
+							<option>Can see Wi-Fi Network SSID on device but unable to connect</option>
+							<option>Can connect to Wi-Fi Network SSID but no internet access</option>
+							<option>Can connect to Wi-Fi Network SSID and access internet but experience frequent drops</option>
+							<option>Can connect to Wi-Fi Network SSID but unable to see Registration Splash Page</option>
+							<option>Can connect to Wi-Fi Network SSID but unable to register using TELUS/Koodo account credential</option>
+							<option>Registered on Splash Page but did not receive Email</option>
+							<option>Registered on Splash Page but did not receive Text Message</option>
+							<option>Others</option>
+						</FormControl>
+					</FormGroup>
+					<div className="hidden">
+						<FormGroup bsSize="large">
+							<ControlLabel>Other Details (Issue Type)<sup>*</sup></ControlLabel>
+							<FormControl placeholder="Other Details (Issue Type)" type="text" />
+						</FormGroup>
 					</div>
-					<div className="col-sm-6">
-								<label className="control-label">Issue Type</label>
-								<select className="form-control">
-								<option value="0">Select Issue</option>
-								<option>Unable to see Wi-Fi Network or SSID on device</option>
-								<option>Can see Wi-Fi Network SSID on device but unable to connect</option>
-								<option>Can connect to Wi-Fi Network SSID but no internet access</option>
-								<option>Can connect to Wi-Fi Network SSID and access internet but experience frequent drops</option>
-								<option>Can connect to Wi-Fi Network SSID but unable to see Registration Splash Page</option>
-								<option>Can connect to Wi-Fi Network SSID but unable to register using TELUS/Koodo account credential</option>
-								<option>Registered on Splash Page but did not receive Email</option>
-								<option>Registered on Splash Page but did not receive Text Message</option>
-								<option>Others</option>
-								</select>
-								<div className="hidden">
-									<label className="control-label">Other Details (Issue Type)<sup>*</sup></label>
-									<textarea className="form-control"></textarea>
-								</div>
-							</div>
-				</div>
-				<h3>Provide any additional details here</h3>
-				<div className="form-group">
-					<textarea className="form-control"></textarea>
-					<div className="checkbox">
-						<label>
-							<input type="checkbox"/> I agree to receive My TELUS updates and to the TELUS Privacy Commitment.
-						</label>
-					</div>
-				</div>
-				<button type="submit" className="btn btn-success">Submit</button>
-    		</div>
-  }
+				</Col>
+
+			</Row>
+			<h3>Provide any additional details here</h3>
+			<Row>
+				<Col xs={12} md={12}>
+					<FormGroup bsSize="large">
+						<FormControl componentClass="textarea" />
+					</FormGroup>
+				</Col>
+			</Row>
+			<Button type="submit" className="btn btn-success">Submit</Button>
+		</div>
+	}
 }
 
 export default form;

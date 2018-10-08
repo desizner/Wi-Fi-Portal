@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import 'bootstrap/dist/css/bootstrap.css'
+import Login from './login/login';
 import Form from './form/form';
 import FormReview from './formReview/formReview';
 import FormResponse from './formResponse/formResponse';
@@ -13,8 +14,9 @@ class App extends Component {
         <div className="container">
           <div className="row">
             <div className="col-sm-12">
+              {/* <Login/> */}
               <Form /> 
-               {/*<FormReview/>
+              {/* <FormReview/>
               <FormResponse/>*/}
             </div>
           </div>
