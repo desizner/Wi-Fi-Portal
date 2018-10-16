@@ -25,13 +25,76 @@ class form extends Component {
 			issue: '',
 			other_issue: '',
 			additional_details: '',
+			errors: {}
 		};
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 	}
-	handleInputChange(event) {
+	handleValidation(){
+		let fName = this.state.fName;
+		let	lName = this.state.lName;
+		let	email = this.state.email;
+		let	phone = this.state.phone;
+		let ssid_select = this.state.ssid_select;
+		let other_ssid_details = this.state.other_ssid_details;
+		let mac_address = this.state.mac_address;
+		let company_name = this.state.company_name;
+		let company_phone = this.state.company_phone;
+		let address = this.state.address;
+		let city = this.state.city;
+		let province = this.state.province;
+		let date = this.state.date;
+		let time_hh = this.state.time_hh;
+		let time_mm = this.state.time_mm;
+		let device_os = this.state.device_os;
+		let issue = this.state.issue;
+		let other_issue = this.state.other_issue;
+		let additional_details = this.state.additional_details;
+		let errors = {};
+		let formIsValid = true;
+	
+		//Name
+		if(!fName){
+		  formIsValid = false;
+		  errors["fName"] = "Enter your first name";
+		}
+		// if(typeof fName !== "undefined"){
+		//   if(!fName.match(/^[a-zA-Z]+$/)){
+		// 	formIsValid = false;
+		// 	errors["fName"] = "Only letters";
+		//   }      	
+		// }
+		if(!lName){
+			formIsValid = false;
+			errors["lName"] = "Enter your last name";
+		  }
+		if(!ssid_select){
+			formIsValid = false;
+			errors["ssid_select"] = "Please select Wi-Fi Network Name or SSID";
+		  }
+	
+		//Email
+		if(!email){
+		  formIsValid = false;
+		  errors["email"] = "Cannot be empty";
+		}
+	
+		if(typeof email !== "undefined"){
+		  let lastAtPos = email.lastIndexOf('@');
+		  let lastDotPos = email.lastIndexOf('.');
+	
+		  if (!(lastAtPos < lastDotPos && lastAtPos > 0 && email.indexOf('@@') === -1 && lastDotPos > 2 && (email.length - lastDotPos) > 2)) {
+			formIsValid = false;
+			errors["email"] = "Email is not valid";
+		  }
+		}
+	
+		this.setState({errors: errors});
+		return formIsValid;
+	  }
+	handleInputChange(event, field) {
 		this.setState({
-			[event.target.name]: event.target.value
+		 	[event.target.name]: event.target.value
 		});
 	}
 
@@ -56,12 +119,19 @@ class form extends Component {
 			other_issue: this.state.other_issue,
 			additional_details: this.state.additional_details,
 		};
-
-		this.props.callbackParent(data);
+		
+		if(this.handleValidation()){
+			alert("Form submitted");
+			this.props.callbackParent(data);
+		  }else{
+			alert("Form has errors.")
+		  }
 
 		
 	}
 	render() {
+		const formValid = this.props.formIsValid;
+		console.log(formValid);
 		return <div className="">
 			<h1 className="page-title">Report a TELUS Public Wi-Fi issue <span>(*)Mandatory</span></h1>
 			<hr />
@@ -73,6 +143,7 @@ class form extends Component {
 							<Col xs={12} md={12}>
 								<FormGroup bsSize="large">
 									<ControlLabel>First Name<sup>*</sup></ControlLabel>
+									<span className="error">{this.state.errors["fName"]}</span>
 									<FormControl placeholder="First Name" type="text"
 										name="fName"
 										value={this.state.fName}
@@ -83,6 +154,7 @@ class form extends Component {
 							<Col xs={12} md={12}>
 								<FormGroup bsSize="large">
 									<ControlLabel>First Name<sup>*</sup></ControlLabel>
+									<span className="error">{this.state.errors["lName"]}</span>
 									<FormControl placeholder="Last Name" type="text"
 										name="lName"
 										value={this.state.lName}
@@ -105,6 +177,7 @@ class form extends Component {
 							<Col xs={12} md={12}>
 								<FormGroup bsSize="large">
 									<ControlLabel>Email<sup>*</sup></ControlLabel>
+									<span className="error">{this.state.errors["email"]}</span>
 									<FormControl placeholder="Email" type="email"
 										name="email"
 										value={this.state.email}
@@ -128,6 +201,7 @@ class form extends Component {
 							<Col xs={12} md={12}>
 								<FormGroup bsSize="large">
 									<ControlLabel>Wi-Fi Network Name or SSID<sup>*</sup></ControlLabel>
+									<span className="error">{this.state.errors["ssid_select"]}</span>
 									<FormControl componentClass="select" name="ssid_select"
 										value={this.state.ssid_select}
 										onChange={this.handleInputChange} placeholder="select">
