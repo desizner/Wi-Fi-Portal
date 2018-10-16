@@ -130,8 +130,6 @@ class form extends Component {
 		
 	}
 	render() {
-		const formValid = this.props.formIsValid;
-		console.log(formValid);
 		return <div className="">
 			<h1 className="page-title">Report a TELUS Public Wi-Fi issue <span>(*)Mandatory</span></h1>
 			<hr />
