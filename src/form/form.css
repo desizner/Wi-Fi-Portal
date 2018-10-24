@@ -9,6 +9,9 @@ h1 {
 .page-title {
     margin-top: 50px;
 }
+.form-label {
+    display: block;
+}
 /* h1.page-title span {
     font-size: 0.5em;
     float: right;

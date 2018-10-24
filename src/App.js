@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
 import Login from './login/login';
 import Form from './form/form';
-import FormReview from './formReview/formReview';
+//import FormReview from './formReview/formReview';
 import FormResponse from './formResponse/formResponse';
 //import { Switch, Route,Link ,BrowserRouter} from 'react-router-dom'
 
@@ -11,20 +11,35 @@ import FormResponse from './formResponse/formResponse';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.handleData = this.handleData.bind(this);
+    this.handleResponse = this.handleResponse.bind(this);
     this.state = {
-      formData: ''
+      formResponse:'',
+      componentToShow: 'first'
     };
   }
 
-  handleData(data) {
-    console.log(data);
+
+  handleResponse(ticketResponse) {
+    console.log(ticketResponse);
     this.setState({
-      formData: data
+      formResponse: ticketResponse,
+      formResponseWrap: true,
+      componentToShow: 'second'
     });
   }
 
   render() {
+    const { componentToShow} = this.state;
+    let componentValue= ""; 
+    switch(componentToShow){
+      case 'first':
+      componentValue = <Form callbackResponse={this.handleResponse} />
+      break;
+      case 'second':
+      componentValue = <FormResponse  formResponse={this.state.formResponse} />
+      break;
+    }
+
     return (
       // <BrowserRouter>
         <div>
@@ -32,9 +47,7 @@ class App extends Component {
             <div className="row">
               <div className="col-sm-12">
                 {/* <Login /> */}
-                <Form callbackParent={this.handleData} />
-                <FormReview formData={this.state.formData} />
-                <FormResponse />
+                {componentValue}
                 {/* <nav>
                   <ul className="list-inline">
                     <li><Link to='/login'>Login</Link></li>
