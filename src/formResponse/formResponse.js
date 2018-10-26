@@ -10,7 +10,7 @@ class formResponse extends Component {
 			<hr />
 			<div className="shadow_wrapper">
 				<h3>Your ticket has been accepted</h3>
-				<h3>Your reference number is </h3>
+				<h3>Your reference number is {formResponse}</h3>
 				<div className="">
 					<button type="submit" className="btn btn-success">Go to My TELUS</button>
 				</div>

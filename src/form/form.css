@@ -12,6 +12,9 @@ h1 {
 .form-label {
     display: block;
 }
+.react-datepicker-wrapper,.react-datepicker__input-container {
+    display: block;
+}
 /* h1.page-title span {
     font-size: 0.5em;
     float: right;

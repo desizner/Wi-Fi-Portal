@@ -20,7 +20,6 @@ class App extends Component {
 
 
   handleResponse(ticketResponse) {
-    console.log(ticketResponse);
     this.setState({
       formResponse: ticketResponse,
       formResponseWrap: true,
@@ -33,7 +32,7 @@ class App extends Component {
     let componentValue= ""; 
     switch(componentToShow){
       case 'first':
-      componentValue = <Form callbackResponse={this.handleResponse} />
+      componentValue = <Form callbackresponse={this.handleResponse} />
       break;
       case 'second':
       componentValue = <FormResponse  formResponse={this.state.formResponse} />
