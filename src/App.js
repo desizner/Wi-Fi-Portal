@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
-import Login from './login/login';
+// import Login from './login/login';
 import Form from './form/form';
-//import FormReview from './formReview/formReview';
 import FormResponse from './formResponse/formResponse';
 //import { Switch, Route,Link ,BrowserRouter} from 'react-router-dom'
 
@@ -45,7 +44,7 @@ class App extends Component {
           <div className="container">
             <div className="row">
               <div className="col-sm-12">
-                {/* <Login /> */}
+                
                 {componentValue}
                 {/* <nav>
                   <ul className="list-inline">

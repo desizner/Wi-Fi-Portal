@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
 import { Button, FormGroup, FormControl, ControlLabel, Row, Col, Checkbox } from "react-bootstrap";
-import 'react-datepicker/dist/react-datepicker.css';
+//import 'react-datepicker/dist/react-datepicker.css';
 import './form.css';
 import InputMask from 'react-input-mask';
-import DatePicker from 'react-datepicker';
-import moment from 'moment';
+//import DatePicker from 'react-datepicker';
+//import moment from 'moment';
 import axios from 'axios';
-
-
 
 class form extends Component {
 	constructor(props) {
 		super(props);
-		//this.textInput = React.createRef();
+		
 		this.state = {
 			fName: '',
 			lName: '',
@@ -26,7 +24,7 @@ class form extends Component {
 			address: '',
 			city: '',
 			province: '',
-			date: moment(),
+			date: '',
 			time_hh: '',
 			time_mm: '',
 			device_os: '',
@@ -37,19 +35,25 @@ class form extends Component {
 			ssid_select_show: false,
 			ssid_select_Tpasspoint: false,
 			issue_type_other: false,
-			// consentEmail: true,
-			// consentPhone: true,
 			errorClass: 'has-error',
 			defaultClass: '',
 			formIsValid: true,
 			formReviewWrap: false,
-			consentEmail: props.isChecked || true,
-			consentPhone: props.isChecked || false,
+			consentEmail: true,
+			consentPhone: false,
 		};
+		this.textInput = React.createRef();
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleDate = this.handleDate.bind(this);
+		this.focusInput = this.focusInput.bind(this);
+		this.handleCheckBoxChange = this.handleCheckBoxChange.bind(this);
+		//this.handleDate = this.handleDate.bind(this);
 	}
+
+	focusInput(){
+		this.textInput.current.focus();
+	 }
+	
 	handleValidation() {
 		let fName = this.state.fName;
 		let lName = this.state.lName;
@@ -175,32 +179,24 @@ class form extends Component {
 		return isFormValid;
 	}
 
-	handleDate(date) {
-		this.setState({
-		  date: date
-		});
-	  }
+	// handleDate(date) {
+	// 	this.setState({
+	// 	  date: date
+	// 	});
+	//   }
 
-	handleInputChange(event, field) {
+	handleCheckBoxChange(event){
+
+		this.setState({ [event.target.name]: !this.state[[event.target.name]] })
+
+	}
+
+	handleInputChange(event) {
 
 		this.setState({
 			[event.target.name]: event.target.value
 		});
 
-		// if (event.target.type === 'checkbox')  {
-		// 	this.setState({
-		// 		[event.target.name ]: event.target.checked
-		// 	});
-		// } else {}
-		// const target = event.target;
-		// const value = target.type === 'checkbox' ? target.checked : target.value;
-		// const name = target.name;
-		// this.setState({
-		// 	[name]: value
-		// });
-		this.setState({ isChecked: !this.state.isChecked })
-
-		
 
 		if (event.target.name === 'ssid_select') {
 			if (event.target.value === 'Other') {
@@ -239,15 +235,11 @@ class form extends Component {
 	handleSubmit(event) {
 		event.preventDefault();
 		if (this.handleValidation()) {
-
-			let deviceOSValue = this.state.device_os;
-			// let deviceTypeValue = this.state.device_os.closest('optgroup').prop('label');
-			// $("#deviceOSValue").html(deviceOSValue);
-			// $("#deviceTypeValue").html(deviceTypeValue);
 			this.setState({
 				formReviewWrap: true,
 			});
 		} else {
+			this.focusInput();
 			alert("Form has errors.");
 		}
 	}
@@ -257,12 +249,13 @@ class form extends Component {
 		event.preventDefault();
 		let emailConsentValue = '';
 		let phoneConsentValue = '';
-		if (!this.state.consentEmail) {
+		debugger;
+		if (this.state.consentEmail) {
 			emailConsentValue = 'Email';
-		}
-		if (!this.state.consentPhone) {
+		}else {emailConsentValue = '';}
+		if (this.state.consentPhone) {
 			phoneConsentValue = 'Phone';
-		}
+		}else {phoneConsentValue = '';}
 		const ticketData = 'id: ticket/new\n' +
 			'queue: General\n' +
 			'Requestor: ' + this.state.email + '\n' +
@@ -285,7 +278,6 @@ class form extends Component {
 		axios.post(`http://10.5.3.97:8080/rt/REST/1.0/ticket/new?user=root&pass=admin`,data)
 			.then(res => {
 				//console.log(res);
-				debugger;
 				console.log(res.data);
 				const ticketResponse = res.data;
 				this.props.callbackresponse(ticketResponse);
@@ -302,7 +294,8 @@ class form extends Component {
 		const { ssid_select_show, ssid_select_Tpasspoint, issue_type_other, formIsValid, errorClass, defaultClass, formReviewWrap, errors,consentEmail,consentPhone } = this.state;
 		return <div className="">
 			{formReviewWrap ||
-				<div><h1 className="page-title">Report a TELUS Public Wi-Fi issue <span>(*)Mandatory</span></h1>
+				<div>
+					{/* <h1 className="page-title">Report a TELUS Public Wi-Fi issue <span>(*)Mandatory</span></h1> */}
 					<hr />
 					<form onSubmit={this.handleSubmit}>
 						<Row>
@@ -313,7 +306,9 @@ class form extends Component {
 										<FormGroup bsSize="large" className={errors["fName"] ? errorClass : defaultClass}>
 											<ControlLabel>First Name<sup>*</sup></ControlLabel>
 											{/* <span className="error">{this.state.errors["fName"]}</span> */}
+											<input type="text" ref={this.textInput} className="hidden" />
 											<FormControl placeholder="First Name" type="text"
+												
 												name="fName"
 												value={this.state.fName}
 												onChange={this.handleInputChange}
@@ -334,10 +329,10 @@ class form extends Component {
 									<Col xs={12} md={12}>
 										<FormGroup bsSize="large"  className={errors["consent_check"] ? errorClass : defaultClass}>
 											<ControlLabel>TELUS may contact me for the reported Issue via</ControlLabel>
-											<Checkbox name="consentCheckbox" checked={this.state.consentEmail} onChange={this.handleInputChange} >
+											<Checkbox name="consentEmail" value ='true' checked={this.state.consentEmail} onChange={this.handleCheckBoxChange} >
 												Email
 							</Checkbox>
-											<Checkbox name="consentCheckbox" checked={this.state.consentPhone} onChange={this.handleInputChange}>
+											<Checkbox name="consentPhone"  value ='true' checked={this.state.consentPhone} onChange={this.handleCheckBoxChange}>
 												Phone
 							</Checkbox>
 											<ControlLabel>You can review the Telus Privacy Policy Here</ControlLabel>
@@ -534,11 +529,11 @@ class form extends Component {
 									<Col xs={12} md={12}>
 										<FormGroup bsSize="large" className={errors["date"] ? errorClass : defaultClass}>
 											<ControlLabel>Date<sup>*</sup></ControlLabel>
-											{/* <FormControl placeholder="DD/MM/YYY" type="text"
+											<FormControl placeholder="DD/MM/YYY" type="text"
 												name="date"
 												value={this.state.date}
-												onChange={this.handleInputChange} /> */}
-											<DatePicker
+												onChange={this.handleInputChange} />
+											{/* <DatePicker
 												 placeholderText="MM/DD/YYY" type="text"
 												 name="date"
 												 className="form-control"
@@ -546,7 +541,7 @@ class form extends Component {
 												onChange={this.handleDate}
 												minDate={moment().add(-6, "months")}
   												maxDate={moment()}
-											/>
+											/> */}
 										</FormGroup>
 									</Col>
 									<Col xs={12} md={12}>
